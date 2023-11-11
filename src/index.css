@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* styles.css or styles.scss */
+
+@layer utilities {
+    .line{
+        border: 1px solid #99999980
+    }
+    .bg-gradient-custom-filter1{
+        background: rgb(212,205,250);
+        /* background: linear-gradient(261deg, rgba(212,205,250,1) 0%, rgba(255,255,255,1) 82%); */
+        border: 1px solid #99999980;
+        box-shadow: 0px 13px 14px 0px #7A63F0;
+    }
+
+    .title-filter{
+        color: #000000;
+        font-family: Poppins;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 70px;
+        letter-spacing: 0em;
+    }
+    .titleFeatures-filter{
+        font-family: Poppins;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 40px;
+        letter-spacing: 0em;
+
+    }
+
+    .label{
+        color: #000000A1;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+        letter-spacing: 0em;   
+    }
+    .title-filter2{
+        color: #000000;
+        font-family: Poppins;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0em;   
+    }
+
+    .bg-gradient-custom-filter2{
+        background: rgb(212,205,250);
+        background: linear-gradient(261deg, rgba(212,205,250,1) 0%, rgba(255,255,255,1) 82%);
+        border: 1px solid #99999980;
+        box-shadow: 0px 4px 4px 0px #7A63F0;
+
+    }
+
+    .button-pagination{
+        background: #D9D9D9;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 70px;
+        letter-spacing: 0em;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+    }
+ 
+    .button-pagination-prev-next{
+        border: 1px solid #99999980;
+        background:  #fff;
+        color: #999999;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 70px;  
+        letter-spacing: 0em;
+        width: 64px;
+        height: 40px;
+        border-radius: 10px;  
+    }
+    .button-pagination {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+}  
