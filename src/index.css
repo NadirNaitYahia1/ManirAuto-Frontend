@@ -87,5 +87,9 @@
         align-items: center;
         justify-content: center;
       }
+      .col2{
+        background-image: url('./assets/Rectangle\ 24.png');
+    
+      }
 
 }  
