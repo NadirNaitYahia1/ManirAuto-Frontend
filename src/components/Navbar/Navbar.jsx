@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Acceuil", href: "#", current: true },
@@ -34,6 +35,11 @@ export default function Example() {
       setIsMediumScreen(false);
     }
   });
+
+  const navigate = useNavigate()
+  const switchLoginPage =()=>{
+    navigate('/login')
+  }
 
   return (
     <div className="bg-white shadow fixed w-full z-10 top-0">
@@ -73,7 +79,7 @@ export default function Example() {
                 </a>
               ))}
               {isMediumScreen ? null : ( // Button only for full screen
-                <button className="bg-purple-600 text-white rounded-md px-3 py-2">
+                <button className="bg-purple-600 text-white rounded-md px-3 py-2" onClick={switchLoginPage}>
                   Ajouter annonce
                 </button>
               )}
