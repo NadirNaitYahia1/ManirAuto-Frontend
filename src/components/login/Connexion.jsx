@@ -39,7 +39,6 @@ const Connexion = () => {
       }
     } catch (error) {
       console.error('Error during login:', error);
-      console.log('error',error);
     }
 
   }

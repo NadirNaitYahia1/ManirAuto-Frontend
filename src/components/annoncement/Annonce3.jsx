@@ -88,6 +88,12 @@ const Annonce3 = () => {
         >
           Retour
         </Link>
+        <Link
+          to="/annonce2"
+          className="bg-gray-500 text-white p-3 rounded bg-purple-500 hover:bg-purple-700 no-underline"
+        >
+          Ajouter 
+        </Link>
  
       </div>
     </div>

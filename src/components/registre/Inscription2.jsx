@@ -1,24 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import logo1 from "../../assets/logo1.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import connexion from "../../assets/connexion.png";
 import phoneIcon from "../../assets/Phone.png";
 import Account from "../../assets/Account.png";
 import emailIcon from "../../assets/Email.png";
+import {api} from "../../api/api"
+import passwordIcon from "../../assets/Password.png";
 import { useEffect } from "react";
 
-import passwordIcon from "../../assets/Password.png";
-import check from "../../assets/check.png";
-
 export default function Example() {
+  
+  const naviate = useNavigate('')
+  const [pop,showPop] =useState(false)
+  const [user,setUser] =useState(
+    { 
+      firstName:'',
+      lastName:'',
+      phoneNumber:'',
+      email:'',
+      password:'',
+      confirmPassword:''
+    }
+  )
+
+  const handelChange = (e)=>{
+
+    setUser({...user,[e.target.id]:e.target.value})
+  }
 
   useEffect =()=>{
     window.scroll(0,0)
   }
 
 
+  const handelSubmit = async (event)=>{
+    event.preventDefault();
+    try{
+      const response = await api.Registre(user)
+      console.log('reponse',response)
+      if(response.status ===201)
+      {
+        naviate('/')
+      }
+
+    }catch(error){
+      console.error('Error during login:', error);
+      showPop(true)
+    }
+  }
+ 
+  
+ 
   return (
-    <div className="flex flex-col min-h-screen sm:flex-row mt-12">
+
+    <div className="flex flex-col min-h-screen sm:flex-row mt-12">     
+ 
       <div
         className="w-full sm:w-1/2 bg-cover relative"
         style={{ backgroundImage: `url(${connexion})` }}
@@ -45,10 +82,11 @@ export default function Example() {
         </div>
 
         <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6 sm:items-center" action="#" method="POST">
+          <form className="space-y-6 sm:items-center" action="#" method="POST" onSubmit={handelSubmit}>
             <div className="relative">
               <input
-                id="phone"
+                onChange={handelChange}
+                id="phoneNumber"
                 name="phone"
                 type="tel"
                 autoComplete="tel"
@@ -63,6 +101,7 @@ export default function Example() {
 
             <div className="relative">
               <input
+                onChange={handelChange}
                 id="email"
                 name="email"
                 type="email"
@@ -79,6 +118,7 @@ export default function Example() {
             <div className="flex space-x-2">
               <div className="flex-1 relative">
                 <input
+                  onChange={handelChange}
                   id="firstName"
                   name="firstName"
                   type="text"
@@ -98,6 +138,7 @@ export default function Example() {
 
               <div className="flex-1 relative">
                 <input
+                  onChange={handelChange}
                   id="lastName"
                   name="lastName"
                   type="text"
@@ -114,6 +155,7 @@ export default function Example() {
 
             <div className="relative">
               <input
+                onChange={handelChange}
                 id="password"
                 name="password"
                 type="password"
@@ -131,30 +173,15 @@ export default function Example() {
               </div>
             </div>
 
-            <div className="relative">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="block w-full rounded-md border border-gray-300 py-2 px-12 text-gray-900 focus:ring-2 focus:ring-indigo-600 placeholder:text-gray-400 sm:text-sm sm:leading-5"
-                placeholder="Email"
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <img src={check} alt="Email Icon" className="h-5 w-5" />
-              </div>
-            </div>
+
 
             <div>
-              <Link to="/annonce1 " className="no-underline">
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-12 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 no-underline"
                 >
                   Créer un compte
                 </button>
-              </Link>
             </div>
           </form>
 

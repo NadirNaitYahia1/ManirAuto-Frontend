@@ -190,7 +190,7 @@ const Annonce1 = () => {
           <div className="flex justify-center mt-3 space-x-4">
 
             <Link
-              to="/annonce2"
+              to="/add-announcement-2"
               className="bg-purple-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
             >
               Suivant

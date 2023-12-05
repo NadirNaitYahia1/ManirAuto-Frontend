@@ -62,7 +62,7 @@ const Annonce2 = () => {
           Retour
         </Link>
         <Link
-          to="/annonce3"
+          to="/add-announcement-3"
           className="bg-purple-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
         >
           Suivant
