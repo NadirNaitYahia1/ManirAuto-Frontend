@@ -5,44 +5,44 @@ import logo from "../../assets/logo.png";
 
 // Define your options arrays
 const marqueOptions = [
-  { value: "marque1", label: "Marque 1" },
-  { value: "marque2", label: "Marque 2" },
-  { value: "marque3", label: "Marque 3" },
+  { value: "marque1", label: "Marque 1",id:"marque" },
+  { value: "marque2", label: "Marque 2",id:"marque"},
+  { value: "marque3", label: "Marque 3",id:"marque" },
   // Add more options for marque here
 ];
 
 const modeleOptions = [
-  { value: "modele1", label: "Modèle 1" },
-  { value: "modele2", label: "Modèle 2" },
-  { value: "modele3", label: "Modèle 3" },
+  { value: "modele1", label: "Modèle 1",id:"modele" },
+  { value: "modele2", label: "Modèle 2",id:"modele" },
+  { value: "modele3", label: "Modèle 3",id:"modele"},
   // Add more options for modèle here
 ];
 
 const energieOptions = [
-  { value: "energie1", label: "Énergie 1" },
-  { value: "energie2", label: "Énergie 2" },
-  { value: "energie3", label: "Énergie 3" },
+  { value: "energie1", label: "Énergie 1",id:"energie" },
+  { value: "energie2", label: "Énergie 2",id:"energie" },
+  { value: "energie3", label: "Énergie 3",id:"energie"},
   // Add more options for énergie here
 ];
 
 const boiteOptions = [
-  { value: "boite1", label: "Boite 1" },
-  { value: "boite2", label: "Boite 2" },
-  { value: "boite3", label: "Boite 3" },
+  { value: "boite1", label: "Boite 1",id:"boite" },
+  { value: "boite2", label: "Boite 2",id:"boite"  },
+  { value: "boite3", label: "Boite 3",id:"boite"  },
   // Add more options for boite here
 ];
 
 const couleurOptions = [
-  { value: "couleur1", label: "Couleur 1" },
-  { value: "couleur2", label: "Couleur 2" },
-  { value: "couleur3", label: "Couleur 3" },
+  { value: "couleur1", label: "Couleur 1",id:"couleur" },
+  { value: "couleur2", label: "Couleur 2",id:"couleur"},
+  { value: "couleur3", label: "Couleur 3",id:"couleur" },
   // Add more options for couleur here
 ];
 
 const wilayaOptions = [
-  { value: "wilaya1", label: "Wilaya 1" },
-  { value: "wilaya2", label: "Wilaya 2" },
-  { value: "wilaya3", label: "Wilaya 3" },
+  { value: "wilaya1", label: "Wilaya 1" ,id:"wilaya"},
+  { value: "wilaya2", label: "Wilaya 2" ,id:"wilaya"},
+  { value: "wilaya3", label: "Wilaya 3" ,id:"wilaya"},
   // Add more options for wilaya here
 ];
 
@@ -56,8 +56,16 @@ const customStyles = {
   }),
   // Define other custom styles here
 };
-
-const Annonce1 = () => {
+const Annonce1 = ({annonce,setAnnonce}) => {
+  
+  const handelSelectChange = async(e)=>{
+  await  setAnnonce({...annonce,[e.id]:e.value})
+    console.log(annonce)
+  }
+  const handelChange = (e)=>{
+    setAnnonce({...annonce,[e.target.id]:e.target.value})
+    console.log(annonce)
+  }
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       {/* Logo in the top-left corner */}
@@ -92,6 +100,8 @@ const Annonce1 = () => {
                 className="w-full p-2 text-sm text-gray-900 rounded shadow"
                 isSearchable={true}
                 styles={customStyles}
+                onChange={handelSelectChange}
+
               />
             </div>
 
@@ -105,6 +115,8 @@ const Annonce1 = () => {
                 className="w-full p-2 text-sm text-gray-900 rounded shadow"
                 isSearchable={true}
                 styles={customStyles}
+                onChange={handelSelectChange}
+
               />
             </div>
 
@@ -117,6 +129,7 @@ const Annonce1 = () => {
                   name="annee"
                   placeholder="L'année"
                   className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
                 />
               </div>
 
@@ -127,6 +140,7 @@ const Annonce1 = () => {
                   name="kilometrage"
                   placeholder="Kilométrage"
                   className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
                 />
               </div>
             </div>
@@ -142,6 +156,7 @@ const Annonce1 = () => {
                   className="w-full p-2 text-sm text-gray-900 rounded shadow"
                   isSearchable={true}
                   styles={customStyles}
+                  onChange={handelSelectChange}
                 />
               </div>
 
@@ -154,6 +169,7 @@ const Annonce1 = () => {
                   className="w-full p-2 text-sm text-gray-900 rounded shadow"
                   isSearchable={true}
                   styles={customStyles}
+                  onChange={handelSelectChange}
                 />
               </div>
             </div>
@@ -169,6 +185,7 @@ const Annonce1 = () => {
                   className="w-full p-2 text-sm text-gray-900 rounded shadow"
                   isSearchable={true}
                   styles={customStyles}
+                  onChange={handelSelectChange}
                 />
               </div>
 
@@ -181,6 +198,7 @@ const Annonce1 = () => {
                   className="w-full p-2 text-sm text-gray-900 rounded shadow"
                   isSearchable={true}
                   styles={customStyles}
+                  onChange={handelSelectChange}
                 />
               </div>
             </div>

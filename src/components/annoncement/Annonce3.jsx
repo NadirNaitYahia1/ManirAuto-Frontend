@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-
-const Annonce3 = () => {
+import {api} from '../../api/api.js'
+const Annonce3 = ({annonce,setAnnonce}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
+    setAnnonce({...annonce,[e.target.id]:e.target.value})
+    console.log(annonce)
   };
+
+  const handelSubmit = async (event)=>{
+    event.preventDefault();
+    try {
+      const response = await api.AddAnnonce(annonce);
+      console.log('status',response)
+      if(response.status ===200){
+    console.log('tres bien ')
+        // navigate("/add-announcement-1")
+   
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+  
+    }
+  }
+ 
+
 
   return (
     <div className="h-screen flex flex-col justify-center items-center">
@@ -88,12 +108,21 @@ const Annonce3 = () => {
         >
           Retour
         </Link>
-        <Link
+        {/* <Link
           to="/annonce2"
           className="bg-gray-500 text-white p-3 rounded bg-purple-500 hover:bg-purple-700 no-underline"
         >
           Ajouter 
-        </Link>
+        </Link> */}
+
+
+        <button className="bg-gray-500 text-white p-3 rounded bg-purple-500 hover:bg-purple-700 no-underline"
+        type="submit"
+        onClick={handelSubmit}
+        > 
+        Ajouter
+                
+        </button>
  
       </div>
     </div>

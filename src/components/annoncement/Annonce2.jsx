@@ -3,7 +3,16 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import Select from "react-select"; // Import de React Select
 
-const Annonce2 = () => {
+const Annonce2 = ({annonce,setAnnonce}) => {
+  
+  const handelSelectChange = (e)=>{
+    setAnnonce({...annonce,[e.id]:e.value})
+    console.log(annonce)
+  }
+  const handelChange = (e)=>{
+    setAnnonce({...annonce,[e.target.id]:e.target.value})
+    console.log(annonce)
+  }
   return (
     <div className="h-screen flex flex-col justify-center items-center">
 
@@ -36,6 +45,7 @@ const Annonce2 = () => {
                 name="description"
                 placeholder="Description"
                 className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 h-32 shadow-md"
+                onChange={handelChange}
               />
             </div>
 
@@ -47,6 +57,7 @@ const Annonce2 = () => {
                 name="prix"
                 placeholder="Prix"
                 className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow-md"
+                onChange={handelChange}
               />
             </div>
           </div>

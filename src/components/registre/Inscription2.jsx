@@ -8,11 +8,17 @@ import emailIcon from "../../assets/Email.png";
 import {api} from "../../api/api"
 import passwordIcon from "../../assets/Password.png";
 import { useEffect } from "react";
+import Button from 'react-bootstrap/Button';
+import Notification from "../notification/Notification";
+ 
 
-export default function Example() {
+export default function Example(  ) {
   
   const naviate = useNavigate('')
-  const [pop,showPop] =useState(false)
+  const [msg,setMessage]= useState('')
+  const [type,setType]=useState('')
+  const[notifVisible,setNotifVisible]=useState(false)
+ 
   const [user,setUser] =useState(
     { 
       firstName:'',
@@ -33,7 +39,9 @@ export default function Example() {
     window.scroll(0,0)
   }
 
-
+  const close=()=>{
+    setNotifVisible(false)
+  }
   const handelSubmit = async (event)=>{
     event.preventDefault();
     try{
@@ -42,20 +50,27 @@ export default function Example() {
       if(response.status ===201)
       {
         naviate('/')
-      }
+        setNotifVisible(true);
+        setMessage('Registration successful! You can now log in.')
+        setType('success')
+        setTimeout(close,1000)
 
+      }
+      
     }catch(error){
       console.error('Error during login:', error);
-      showPop(true)
+      setMessage('Registration ')
+      setType('warning')
+      setNotifVisible(true)
+      setTimeout(close,5000)
     }
   }
- 
-  
- 
-  return (
 
-    <div className="flex flex-col min-h-screen sm:flex-row mt-12">     
- 
+  return (
+<>
+
+    <div className="flex flex-col min-h-screen sm:flex-row mt-12"> 
+  
       <div
         className="w-full sm:w-1/2 bg-cover relative"
         style={{ backgroundImage: `url(${connexion})` }}
@@ -67,6 +82,8 @@ export default function Example() {
       </div>
 
       <div className="w-full sm:w-1/2 px-6 py-10 lg:px-8 bg-white">
+        {notifVisible ? <Notification message={msg} type={type}/> :null}
+
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-20 w-20 mt-0"
@@ -82,6 +99,7 @@ export default function Example() {
         </div>
 
         <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+
           <form className="space-y-6 sm:items-center" action="#" method="POST" onSubmit={handelSubmit}>
             <div className="relative">
               <input
@@ -197,5 +215,6 @@ export default function Example() {
         </div>
       </div>
     </div>
+</>
   );
 }

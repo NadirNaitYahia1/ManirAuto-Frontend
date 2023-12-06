@@ -58,6 +58,7 @@ export default function Example() {
             }
           `}
         </style>
+
         <div className="flex items-center justify-between h-16 ">
           <div className="flex items-center">
             <img className="h-14 w-14" src={logo} alt="Your Logo" />
@@ -143,6 +144,8 @@ export default function Example() {
           </Disclosure>
         </div>
       )}
+  
     </div>
+ 
   );
 }

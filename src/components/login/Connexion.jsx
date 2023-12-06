@@ -5,11 +5,18 @@ import emailIcon from "../../assets/Account.png";
 import passwordIcon from "../../assets/Password.png";
 import {api} from '../../api/api'
 import { useNavigate } from "react-router-dom";
+import Notification from "../notification/Notification";
+
 
 
 const Connexion = () => {
-  
 
+  const[notifVisible,setNotifVisible]=useState(false)
+  const [msg,setMessage]= useState('')
+  const [type,setType]=useState('')
+  const close=()=>{
+    setNotifVisible(false)
+  }
   const [dataPerson,setDataPerson]= useState(
    { 
     email:'',
@@ -36,9 +43,17 @@ const Connexion = () => {
       console.log('status',response)
       if(response.status ===200){
         navigate("/add-announcement-1")
+        setNotifVisible(true);
+        setMessage('Registration successful! You can now log in.')
+        setType('success')
+        setTimeout(close,1000)
       }
     } catch (error) {
       console.error('Error during login:', error);
+      setMessage('Registration ')
+      setType('warning')
+      setNotifVisible(true)
+      setTimeout(close,5000)
     }
 
   }
@@ -60,6 +75,7 @@ const Connexion = () => {
       </div>
 
       <div className="w-full sm:w-1/2 px-6 py-10 lg:px-8 bg-white">
+        {notifVisible ? <Notification message={msg} type={type}/> :null}
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           {/* Your Logo */}
           <img className="mx-auto h-20 w-20" src={logo} alt="Your Company" />
