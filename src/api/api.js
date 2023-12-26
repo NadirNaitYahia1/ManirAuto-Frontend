@@ -11,7 +11,7 @@ const LogIn = async (user) => {
     };
   
     try {
-      const response = await fetch(baseUrl+'api/loginUser', fetchOptions);  
+      const response = await fetch(baseUrl+'api/login/', fetchOptions);  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       } else {
@@ -33,7 +33,7 @@ const Registre = async (user) => {
     };
   
     try {
-      const response = await fetch(baseUrl+'api/registerUser', fetchOptions);  
+      const response = await fetch(baseUrl+'api/register/', fetchOptions);  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       } else {
@@ -45,28 +45,28 @@ const Registre = async (user) => {
       throw error;  
     }
   };
-const AddAnnonce = async (annonce) => {
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(annonce),
-    };
-  
+  async function addCar(carData, token) {
     try {
-      const response = await fetch(baseUrl+'annonce/addAnnouncement', fetchOptions);  
+      const response = await fetch(baseUrl+'api/addCar/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(carData),
+      });
+  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
-      } else {
-        return response;    
       }
+  
+      const data = await response.json();
+      return data;
     } catch (error) {
-      // Handle errors
-      console.error('Fetch error:', error);
-      throw error;  
+      throw new Error(`Fetch error: ${error.message}`);
     }
-  };
+  }
+  
 
 
 
@@ -75,6 +75,6 @@ const AddAnnonce = async (annonce) => {
   export const api = {
     LogIn,
     Registre,
-    AddAnnonce
+    addCar
   };
   

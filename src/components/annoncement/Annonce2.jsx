@@ -5,13 +5,13 @@ import Select from "react-select"; // Import de React Select
 
 const Annonce2 = ({annonce,setAnnonce}) => {
   
-  const handelSelectChange = (e)=>{
-    setAnnonce({...annonce,[e.id]:e.value})
-    console.log(annonce)
-  }
+  // const handelSelectChange = (e)=>{
+  //   setAnnonce({...annonce,[e.id]:e.value})
+  // }
   const handelChange = (e)=>{
     setAnnonce({...annonce,[e.target.id]:e.target.value})
-    console.log(annonce)
+    console.log('data annonce2',annonce)
+
   }
   return (
     <div className="h-screen flex flex-col justify-center items-center">

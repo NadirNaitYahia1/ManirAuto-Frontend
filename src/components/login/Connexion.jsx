@@ -9,7 +9,7 @@ import Notification from "../notification/Notification";
 
 
 
-const Connexion = () => {
+const Connexion = ({annonce,setAnnonce}) => {
 
   const[notifVisible,setNotifVisible]=useState(false)
   const [msg,setMessage]= useState('')
@@ -40,8 +40,11 @@ const Connexion = () => {
     event.preventDefault();
     try {
       const response = await api.LogIn(dataPerson);
-      console.log('status',response)
+      console.log(response)
       if(response.status ===200){
+        const data = await response.json()
+        console.log('data',data)
+        localStorage.setItem('token',data.jwt)     
         navigate("/add-announcement-1")
         setNotifVisible(true);
         setMessage('Registration successful! You can now log in.')

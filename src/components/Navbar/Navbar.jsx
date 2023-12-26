@@ -2,12 +2,11 @@ import { Fragment, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-
+import Account from '../../assets/Account.png'
 const navigation = [
   { name: "Acceuil", href: "#", current: true },
   { name: "Annonces", href: "#", current: false },
-  { name: "Recherche", href: "#", current: false },
-  { name: "A Propos", href: "#", current: false },
+  { name: "Apropos", href: "#", current: false },
   { name: "Contact", href: "#", current: false },
 ];
 
@@ -36,13 +35,13 @@ export default function Example() {
     }
   });
 
-  const navigate = useNavigate()
-  const switchLoginPage =()=>{
-    navigate('/login')
-  }
+  const navigate = useNavigate();
+  const handleAddClick = () => {
+    navigate("/login");
+  };
 
   return (
-    <div className="bg-white shadow fixed w-full z-10 top-0">
+    <div className="bg-white shadow fixed w-full z-10 top-0 ">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <style>
           {`
@@ -50,6 +49,8 @@ export default function Example() {
             .nav-link {
               text-decoration: none;
               color: #333; /* Default color for links */
+              
+              
             }
 
             /* Underline effect for the links on hover */
@@ -58,19 +59,18 @@ export default function Example() {
             }
           `}
         </style>
-
         <div className="flex items-center justify-between h-16 ">
           <div className="flex items-center">
             <img className="h-14 w-14" src={logo} alt="Your Logo" />
           </div>
           <div className="hidden sm:block sm:ml-6">
-            <div className="flex items-center justify-center space-x-2">
+            <div className="flex items-center justify-center space-x-11">
               {navigation.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    "px-3 py-2 nav-link font-semibold",
+                    "px-1 py-2 nav-link font-semibold",
                     item.current ? "text-purple-600" : "text-gray-700",
                     "rounded-md text-base" // Adjust text size here
                   )}
@@ -79,10 +79,19 @@ export default function Example() {
                   {item.name}
                 </a>
               ))}
+                  {isMediumScreen ? null : ( // Button only for full screen
+                    <button className="bg-transparent hover:bg-transparent " onClick={handleAddClick}>
+                      <img src={Account} alt="" className="h-[25px] w-[25px]"  />
+                    </button>
+                    
+      
+                  )}
               {isMediumScreen ? null : ( // Button only for full screen
-                <button className="bg-purple-600 text-white rounded-md px-3 py-2" onClick={switchLoginPage}>
-                  Ajouter annonce
+                <button className="bg-purple-600 text-white rounded-md px-1 py-1" onClick={handleAddClick}>
+                  Ajouter Annonce
                 </button>
+                
+  
               )}
             </div>
           </div>
@@ -138,14 +147,15 @@ export default function Example() {
                   >
                     Ajouter annonce
                   </button>
+         
+
+                   
                 </div>
               </>
             )}
           </Disclosure>
         </div>
       )}
-  
     </div>
- 
   );
 }

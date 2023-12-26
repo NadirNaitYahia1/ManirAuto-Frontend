@@ -7,10 +7,8 @@ import Account from "../../assets/Account.png";
 import emailIcon from "../../assets/Email.png";
 import {api} from "../../api/api"
 import passwordIcon from "../../assets/Password.png";
-import { useEffect } from "react";
-import Button from 'react-bootstrap/Button';
 import Notification from "../notification/Notification";
- 
+import { useEffect } from "react";
 
 export default function Example(  ) {
   
@@ -21,15 +19,14 @@ export default function Example(  ) {
  
   const [user,setUser] =useState(
     { 
-      firstName:'',
-      lastName:'',
-      phoneNumber:'',
+      name:'',
+      surname:'',
+      phone:'',
       email:'',
       password:'',
       confirmPassword:''
     }
   )
-
   const handelChange = (e)=>{
 
     setUser({...user,[e.target.id]:e.target.value})
@@ -42,12 +39,14 @@ export default function Example(  ) {
   const close=()=>{
     setNotifVisible(false)
   }
+
+
   const handelSubmit = async (event)=>{
     event.preventDefault();
     try{
       const response = await api.Registre(user)
       console.log('reponse',response)
-      if(response.status ===201)
+      if(response.status ===200)
       {
         naviate('/')
         setNotifVisible(true);
@@ -104,7 +103,7 @@ export default function Example(  ) {
             <div className="relative">
               <input
                 onChange={handelChange}
-                id="phoneNumber"
+                id="phone"
                 name="phone"
                 type="tel"
                 autoComplete="tel"
@@ -137,8 +136,8 @@ export default function Example(  ) {
               <div className="flex-1 relative">
                 <input
                   onChange={handelChange}
-                  id="firstName"
-                  name="firstName"
+                  id="name"
+                  name="name"
                   type="text"
                   autoComplete="given-name"
                   required
@@ -157,8 +156,8 @@ export default function Example(  ) {
               <div className="flex-1 relative">
                 <input
                   onChange={handelChange}
-                  id="lastName"
-                  name="lastName"
+                  id="surname"
+                  name="surname"
                   type="text"
                   autoComplete="family-name"
                   required

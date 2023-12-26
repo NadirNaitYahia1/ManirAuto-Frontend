@@ -16,19 +16,28 @@ import { useState } from 'react';
 
 function App() {
   const [annonce,setAnnonce] =useState(
-{    
-    fileInput:'',
-    prix:0,
-    description:'',
-    wilaya:'',
-    couleur:'',
-    boite:'',
-    energie:'',
-    kilometrage:0,
-    annee:0,
-    modele:"",
-    marque:""}
+    {
+      mark: '',
+      model: '',
+      annee: 0,
+      energie: '',  
+      couleur: '',
+      kilometrage: 0,
+      description: '',
+      prix: 0,
+      wilaya: '',
+      puissanceFiscale: 0,
+      boiteVitesse: 'automatique',
+      nombrePortes:0,
+      airbag: false,
+      abs: false,
+      climatisation: false,
+      CDMP3Bluetooth: false,
+      directionAssistee: false,
+      photo: '',
+    }
   )
+
   return (
     <div className='App'>
       <Router>
@@ -36,11 +45,11 @@ function App() {
         <Routes>  
             <Route path="/"  element={<Pageuser />} /> 
             <Route path="/advertisement-detail" element={<AdvertisementDetail />} />
-            <Route path="/login" element={<Connexion />} />
+            <Route path="/login" element={<Connexion annonce={annonce} setAnnonce={setAnnonce}  />} />
             <Route path="/register" element={<Inscription2 />} />  
-            <Route path="/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce} />} />
+            <Route path="/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}  />} />
             <Route path="/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}  />} />
-            <Route path="/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce} />} />
+            <Route path="/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce}  />} />
         </Routes>
       </Router>
     </div>

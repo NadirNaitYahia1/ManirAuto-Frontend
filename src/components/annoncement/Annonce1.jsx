@@ -19,9 +19,9 @@ const modeleOptions = [
 ];
 
 const energieOptions = [
-  { value: "energie1", label: "Énergie 1",id:"energie" },
-  { value: "energie2", label: "Énergie 2",id:"energie" },
-  { value: "energie3", label: "Énergie 3",id:"energie"},
+  { value: "diesel", label: "diesel",id:"diesel" },
+  { value: "Essance", label: "Essance",id:"Essance" },
+  { value: "Gpl", label: "Gpl",id:"Gpl"},
   // Add more options for énergie here
 ];
 
@@ -40,9 +40,9 @@ const couleurOptions = [
 ];
 
 const wilayaOptions = [
-  { value: "wilaya1", label: "Wilaya 1" ,id:"wilaya"},
-  { value: "wilaya2", label: "Wilaya 2" ,id:"wilaya"},
-  { value: "wilaya3", label: "Wilaya 3" ,id:"wilaya"},
+  { value: "Batna", label: "Batna" ,id:"wilaya"},
+  { value: "Batna", label: "Batna" ,id:"wilaya"},
+  { value: "Batna", label: "Batna" ,id:"wilaya"},
   // Add more options for wilaya here
 ];
 
@@ -59,12 +59,12 @@ const customStyles = {
 const Annonce1 = ({annonce,setAnnonce}) => {
   
   const handelSelectChange = async(e)=>{
-  await  setAnnonce({...annonce,[e.id]:e.value})
-    console.log(annonce)
+    setAnnonce({...annonce,[e.id]:e.value})
+    console.log('data annonce1',annonce)
   }
   const handelChange = (e)=>{
     setAnnonce({...annonce,[e.target.id]:e.target.value})
-    console.log(annonce)
+ 
   }
   return (
     <div className="h-screen flex flex-col justify-center items-center">
@@ -92,32 +92,26 @@ const Annonce1 = ({annonce,setAnnonce}) => {
           <div className="p-4 space-y-4">
             {/* Marque (Dropdown) */}
             <div className="space-y-1 relative">
-              <Select
-                options={marqueOptions}
-                id="marque"
-                name="marque"
-                placeholder="Marque"
-                className="w-full p-2 text-sm text-gray-900 rounded shadow"
-                isSearchable={true}
-                styles={customStyles}
-                onChange={handelSelectChange}
-
-              />
+            <input
+                  type="text"
+                  id="mark"
+                  name="mark"
+                  placeholder="Marque"
+                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
+                />
             </div>
 
             {/* Modèle (Dropdown avec recherche) */}
             <div className="space-y-1 relative">
-              <Select
-                options={modeleOptions}
-                id="modele"
-                name="modele"
-                placeholder="Modèle"
-                className="w-full p-2 text-sm text-gray-900 rounded shadow"
-                isSearchable={true}
-                styles={customStyles}
-                onChange={handelSelectChange}
-
-              />
+              <input
+                  type="text"
+                  id="model"
+                  name="model"
+                  placeholder="Modèle"
+                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
+                />
             </div>
 
             {/* L'année et Kilométrage */}
@@ -148,15 +142,13 @@ const Annonce1 = ({annonce,setAnnonce}) => {
             {/* Énergie et Boite */}
             <div className="space-x-4 flex">
               <div className="w-1/2 relative">
-                <Select
-                  options={energieOptions}
+              <input
+                  type="text"
                   id="energie"
                   name="energie"
                   placeholder="Énergie"
-                  className="w-full p-2 text-sm text-gray-900 rounded shadow"
-                  isSearchable={true}
-                  styles={customStyles}
-                  onChange={handelSelectChange}
+                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
                 />
               </div>
 
@@ -177,28 +169,24 @@ const Annonce1 = ({annonce,setAnnonce}) => {
             {/* Couleur et Wilaya */}
             <div className="space-x-4 flex">
               <div className="w-1/2 relative">
-                <Select
-                  options={couleurOptions}
+                <input
+                  type="text"
                   id="couleur"
                   name="couleur"
                   placeholder="Couleur"
-                  className="w-full p-2 text-sm text-gray-900 rounded shadow"
-                  isSearchable={true}
-                  styles={customStyles}
-                  onChange={handelSelectChange}
+                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
                 />
               </div>
 
               <div className="w-1/2 relative">
-                <Select
-                  options={wilayaOptions}
+                <input
+                  type="text"
                   id="wilaya"
                   name="wilaya"
                   placeholder="Wilaya"
-                  className="w-full p-2 text-sm text-gray-900 rounded shadow"
-                  isSearchable={true}
-                  styles={customStyles}
-                  onChange={handelSelectChange}
+                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                  onChange={handelChange}
                 />
               </div>
             </div>
@@ -221,3 +209,6 @@ const Annonce1 = ({annonce,setAnnonce}) => {
 };
 
 export default Annonce1;
+
+
+

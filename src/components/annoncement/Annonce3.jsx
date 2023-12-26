@@ -2,32 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import {api} from '../../api/api.js'
-const Annonce3 = ({annonce,setAnnonce}) => {
+const Annonce3 = ({annonce,setAnnonce,owner}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
     setAnnonce({...annonce,[e.target.id]:e.target.value})
-    console.log(annonce)
+    console.log('data annonce 3',annonce)
   };
 
-  const handelSubmit = async (event)=>{
+  const handelSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.AddAnnonce(annonce);
-      console.log('status',response)
-      if(response.status ===200){
-    console.log('tres bien ')
-        // navigate("/add-announcement-1")
-   
+      const response = await api.addCar(annonce);
+      if (response.status === 200) {
+        console.log('Success!');
+      } else {
+        console.error('Error:', response.statusText);
+        // Handle the error, show a message to the user, etc.
       }
     } catch (error) {
       console.error('Error during login:', error);
-  
     }
-  }
- 
+  };
+  
 
 
   return (
