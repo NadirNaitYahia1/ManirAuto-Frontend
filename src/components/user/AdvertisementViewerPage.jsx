@@ -1,11 +1,11 @@
 import React from 'react'
 import AdvertisementViewer from './AdvertisementViewer'
 import Filter from './Filter'
-const AdvertisementViewerPage = () => {
+const AdvertisementViewerPage = ({data,setData}) => {
   return (
     <div className="flex w-full h-full ">
-      <Filter />
-      <AdvertisementViewer />
+      <Filter data={data} setData={setData}/>
+      <AdvertisementViewer  data={data} setData={setData}/>
     </div>
   )
 }

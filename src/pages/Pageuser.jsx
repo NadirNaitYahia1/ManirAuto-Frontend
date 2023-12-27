@@ -3,18 +3,19 @@ import Home from '../components/user/Home'
 import AdvertisementViewerPage from '../components/user/AdvertisementViewerPage'
 import Apropos from '../components/user/Apropos'
 import data from '../data/data'
+import { useState } from 'react'
 
 export const context = React.createContext()
 
 const Pageuser = () => {
+  const [data, setData] = useState([]);
+
   return (
     <div className="container-fluid">
         <div className="row">
-          <context.Provider value={{data}}>
             <Home /> 
-            <AdvertisementViewerPage />
+            <AdvertisementViewerPage  data={data} setData={setData}/>
             <Apropos />
-          </context.Provider> 
         </div>
     </div>
 

@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import imgAudi from '../../assets/audi.png'
 import imgLexus from '../../assets/lexus.png'
 import imgMerc from '../../assets/mercedes-benz.png'
 
-const Filter = () => {
+const Filter = ({data,setData}) => {
+
+ 
+  const filterData = (filter) => {
+    console.log(filter)
+    const newData = data.filter((item) => {
+      return item.Energie === filter.Energie
+    })
+    setData(newData)
+  }
+
+ 
+
+
   return (
   <div className=" basis-1/5 mx-auto w mt-5 h-full hidden sm:block ">
     <div className="mt-10 container  rounded-[15px] w-[90%] mx-auto bg-gradient-custom-filter1 pb-12 ">
@@ -24,7 +37,7 @@ const Filter = () => {
       <div className="Energie ml-4">
 
         <div className='flex'>
-          <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 ms-2 text-blue-600 bg-gray-100 border-gray-300 rounded  dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <input onClick={()=>filterData({'Energie':'Essence'})} id="default-checkbox" type="checkbox" value="" class="w-4 h-4 ms-2 text-blue-600 bg-gray-100 border-gray-300 rounded  dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
           <label for="default-checkbox" class="label ms-5">Essence</label>
         </div>
         

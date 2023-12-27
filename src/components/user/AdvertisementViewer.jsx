@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import imgPhone from '../../assets/Phone.png';
-import imgCar from '../../assets/car.png';
+ 
 
-const AdvertisementViewer = () => {
-  const [data, setData] = useState([]);
+const AdvertisementViewer = ({data,setData}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
 
   useEffect(() => {
+    console.log(data)
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/getCars/');
@@ -31,7 +31,7 @@ const AdvertisementViewer = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data.length) {
+  if (!data?.length) {
     return <p>Loading...</p>;
   }
 
