@@ -12,6 +12,7 @@ import Annonce2 from "./components/annoncement/Annonce2.jsx";
 import Annonce3 from "./components/annoncement/Annonce3.jsx";
 import { useState } from 'react';
 import AiBot from './components/bot/AiBot.jsx';
+import Predict from './components/bot/Predict.jsx';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route path="/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}  />} />
             <Route path="/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}  />} />
             <Route path="/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce}  />} />
+            <Route path="/predict" element={ <Predict/>} />
         </Routes> 
       </Router>
     </div>

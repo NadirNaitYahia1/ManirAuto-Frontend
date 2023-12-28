@@ -1,5 +1,5 @@
 import React from 'react';
-import bot from '../../assets/bot6.jpg';
+import bot from '../../assets/bot9.png';
 import { motion } from 'framer-motion';
 
 const AiBot = () => {
@@ -13,7 +13,7 @@ const AiBot = () => {
       <motion.img
         src={bot}
         alt=''
-        className='h-[80px]   rounded-[55%] cursor-pointer mx-2'
+        className='h-[80px]   cursor-pointer mx-2'
         initial={{ opacity: 0.99, y: 60 }}
         animate={{
           opacity: 1,
