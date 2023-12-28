@@ -1,8 +1,18 @@
 import React from 'react';
 import bot from '../../assets/bot9.png';
 import { motion } from 'framer-motion';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const AiBot = () => {
+  const navigate = useNavigate("")
+
+
+
+  const clicked = () => {
+    navigate('/predict');
+
+  }
   return (
     <motion.div
       className='w-full flex justify-end fixed'
@@ -12,6 +22,7 @@ const AiBot = () => {
     >
       <motion.img
         src={bot}
+        onClick={clicked}
         alt=''
         className='h-[80px]   cursor-pointer mx-2'
         initial={{ opacity: 0.99, y: 60 }}

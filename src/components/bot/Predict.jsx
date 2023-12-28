@@ -29,9 +29,9 @@ const Predict = () => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Utilisez application/json pour le corps JSON
+        'Content-Type': 'application/json',  
       },
-      body: JSON.stringify(formData), // Convertissez l'objet formData en JSON
+      body: JSON.stringify(formData),  
     });
 
     if (response.ok) {
@@ -59,7 +59,7 @@ const Predict = () => {
       
 
         <label>Annee Modele</label>
-        <input type="number"/>
+        <input  type="number"/>
 
 
         <label>Annee Modele</label>
