@@ -11,11 +11,11 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
     NombrePortes: "",
     PremiereMain: "",
     Etat: "Très bon",
-    Airbags: false,
-    Climatisation: false,
-    ABS: false,
-    CDMP3Bluetooth: false,
-    JantesAluminium: false,
+    Airbags: 'False',
+    Climatisation: 'False',
+    ABS: 'False',
+    CDMP3Bluetooth: 'False',
+    JantesAluminium: 'False',
   });
 
   const handleInputChange = (e) => {
@@ -24,29 +24,34 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
+   console.log(formData)
   };
 
-  const handleSubmit = (e) => {
+  const [predictions, setPredictions] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", formData);
-    setFormData({
-      Marque: "",
-      AnneeModele: "",
-      Kilometrage: "",
-      TypeCarburant: "Essence",
-      BoiteVitesses: "Manuelle",
-      PuissanceFiscale: "",
-      NombrePortes: "",
-      PremiereMain: "",
-      Etat: "Très bon",
-      Airbags: false,
-      Climatisation: false,
-      ABS: false,
-      CDMP3Bluetooth: false,
-      JantesAluminium: false,
+
+    // Utilize your own Django API URL
+    const apiUrl = "http://localhost:8000/api/model/";
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     });
-    onSubmit(); // Call the onSubmit function passed from Connexion
+
+    if (response.ok) {
+      const data = await response.json();
+      setPredictions(data);
+      console.log(predictions)
+    } else {
+      console.error("Erreur lors de l'envoi des données du formulaire");
+    }
   };
+ 
 
   const overlayRef = useRef(null);
 
@@ -64,7 +69,7 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center  ">
       <div
         ref={overlayRef}
         className="bg-white p-8 rounded shadow-md max-w-screen-md w-full max-h-screen overflow-y-auto"
@@ -93,6 +98,17 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
               type="number"
               name="AnneeModele"
               value={formData.AnneeModele}
+              onChange={handleInputChange}
+              className="p-2 border border-gray-300 rounded w-full"
+              required
+            />
+          </div>
+          <div className="mb-4 w-1/2 px-2">
+            <label className="text-sm mb-1">Kilometrage</label>
+            <input
+              type="number"
+              name="Kilometrage"
+              value={formData.Kilometrage}
               onChange={handleInputChange}
               className="p-2 border border-gray-300 rounded w-full"
               required
@@ -224,6 +240,13 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
               className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
             />
           </div>
+
+            {
+              predictions && (
+                <div className="">
+                prix min {predictions[0]}   prix max {predictions[1]}
+            </div>)
+            }
           <div className="w-full flex justify-center mt-4">
             <button
               type="submit"
