@@ -11,11 +11,11 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
     NombrePortes: "",
     PremiereMain: "",
     Etat: "Très bon",
-    Airbags: 'False',
-    Climatisation: 'False',
-    ABS: 'False',
-    CDMP3Bluetooth: 'False',
-    JantesAluminium: 'False',
+    Airbags: "False",
+    Climatisation: "False",
+    ABS: "False",
+    CDMP3Bluetooth: "False",
+    JantesAluminium: "False",
   });
 
   const handleInputChange = (e) => {
@@ -24,7 +24,7 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
-   console.log(formData)
+    console.log(formData);
   };
 
   const [predictions, setPredictions] = useState(null);
@@ -46,12 +46,11 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
     if (response.ok) {
       const data = await response.json();
       setPredictions(data);
-      console.log(predictions)
+      console.log(predictions);
     } else {
       console.error("Erreur lors de l'envoi des données du formulaire");
     }
   };
- 
 
   const overlayRef = useRef(null);
 
@@ -241,12 +240,13 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
             />
           </div>
 
-            {
-              predictions && (
-                <div className="">
-                prix min {predictions[0]}   prix max {predictions[1]}
-            </div>)
-            }
+          {predictions && (
+                 <div className="w-full flex justify-center mt-4 bg-purple-300 p-4 rounded shadow-md ">
+            <p className="text-mauve-900 font-bold mr-60 ">Prix min : {predictions[0]}</p>
+            <p className="text-mauve-900 font-bold">Prix max : {predictions[1]} </p>
+          </div>
+          )}
+     
           <div className="w-full flex justify-center mt-4">
             <button
               type="submit"
