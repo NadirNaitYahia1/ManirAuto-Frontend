@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import Select from "react-select"; // Import de React Select
-
-const Annonce2 = ({annonce,setAnnonce}) => {
-  
+import AiBot from "../bot/AiBot.jsx";
+import ChatbotPopup from "../bot/ChatbotPopup.jsx";
+const Annonce2 = ({ annonce, setAnnonce }) => {
   // const handelSelectChange = (e)=>{
   //   setAnnonce({...annonce,[e.id]:e.value})
   // }
-  const handelChange = (e)=>{
-    setAnnonce({...annonce,[e.target.id]:e.target.value})
-    console.log('data annonce2',annonce)
+  const [isChatbotPopupVisible, setChatbotPopupVisible] = useState(false);
 
-  }
+  const openChatbotPopup = () => {
+    setChatbotPopupVisible(true);
+  };
+
+  const closeChatbotPopup = () => {
+    setChatbotPopupVisible(false);
+  };
+  const handelChange = (e) => {
+    setAnnonce({ ...annonce, [e.target.id]: e.target.value });
+    console.log("data annonce2", annonce);
+  };
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-
-
       {/* Button (Annuler) in the top-right corner */}
       <div className="absolute top-0 right-0 p-4">
         <Link
@@ -26,6 +30,7 @@ const Annonce2 = ({annonce,setAnnonce}) => {
           Annuler
         </Link>
       </div>
+      <AiBot onChatbotClick={openChatbotPopup} />
 
       {/* Text in the middle of the page */}
       <div className="text-center mt-1">
@@ -67,7 +72,7 @@ const Annonce2 = ({annonce,setAnnonce}) => {
       {/* Deux boutons (Retour et Suivant)  */}
       <div className="flex justify-between mt-8 space-x-4">
         <Link
-          to="/annonce1"
+          to="/add-announcement-1"
           className="bg-gray-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
         >
           Retour
@@ -79,6 +84,7 @@ const Annonce2 = ({annonce,setAnnonce}) => {
           Suivant
         </Link>
       </div>
+      {isChatbotPopupVisible && <ChatbotPopup onClose={closeChatbotPopup} />}
     </div>
   );
 };

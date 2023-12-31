@@ -5,83 +5,78 @@ import connexion from "../../assets/connexion.png";
 import phoneIcon from "../../assets/Phone.png";
 import Account from "../../assets/Account.png";
 import emailIcon from "../../assets/Email.png";
-import {api} from "../../api/api"
+import { api } from "../../api/api";
 import passwordIcon from "../../assets/Password.png";
 import Notification from "../notification/Notification";
 import { useEffect } from "react";
+import AiBot from "../bot/AiBot";
+import ChatbotPopup from "../bot/ChatbotPopup";
+export default function Example() {
+  const naviate = useNavigate("");
+  const [msg, setMessage] = useState("");
+  const [type, setType] = useState("");
+  const [notifVisible, setNotifVisible] = useState(false);
+  const [chatbotVisible, setChatbotVisible] = useState(false);
+  const [formVisible, setFormVisible] = useState(false);
 
-export default function Example(  ) {
-  
-  const naviate = useNavigate('')
-  const [msg,setMessage]= useState('')
-  const [type,setType]=useState('')
-  const[notifVisible,setNotifVisible]=useState(false)
- 
-  const [user,setUser] =useState(
-    { 
-      name:'',
-      surname:'',
-      phone:'',
-      email:'',
-      password:'',
-      confirmPassword:''
-    }
-  )
-  const handelChange = (e)=>{
+  const [user, setUser] = useState({
+    name: "",
+    surname: "",
+    phone: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const handelChange = (e) => {
+    setUser({ ...user, [e.target.id]: e.target.value });
+  };
 
-    setUser({...user,[e.target.id]:e.target.value})
-  }
+  useEffect = () => {
+    window.scroll(0, 0);
+  };
 
-  useEffect =()=>{
-    window.scroll(0,0)
-  }
+  const close = () => {
+    setNotifVisible(false);
+  };
 
-  const close=()=>{
-    setNotifVisible(false)
-  }
-
-
-  const handelSubmit = async (event)=>{
+  const handelSubmit = async (event) => {
     event.preventDefault();
-    try{
-      const response = await api.Registre(user)
-      console.log('reponse',response)
-      if(response.status ===200)
-      {
-        naviate('/')
+    try {
+      const response = await api.Registre(user);
+      console.log("reponse", response);
+      if (response.status === 200) {
+        naviate("/");
         setNotifVisible(true);
-        setMessage('Registration successful! You can now log in.')
-        setType('success')
-        setTimeout(close,1000)
-
+        setMessage("Registration successful! You can now log in.");
+        setType("success");
+        setTimeout(close, 1000);
       }
-      
-    }catch(error){
-      console.error('Error during login:', error);
-      setMessage('Registration ')
-      setType('warning')
-      setNotifVisible(true)
-      setTimeout(close,5000)
+    } catch (error) {
+      console.error("Error during login:", error);
+      setMessage("Registration ");
+      setType("warning");
+      setNotifVisible(true);
+      setTimeout(close, 5000);
     }
-  }
+  };
 
   return (
-<>
+    <div className="flex flex-col min-h-screen sm:flex-row mt-12">
+      <AiBot onChatbotClick={() => setFormVisible(true)} />
 
-    <div className="flex flex-col min-h-screen sm:flex-row mt-12"> 
-  
       <div
         className="w-full sm:w-1/2 bg-cover relative"
         style={{ backgroundImage: `url(${connexion})` }}
       >
         <div className="absolute top-0 left-0 p-4 text-white text-5xl font-bold hidden sm:block mt-4">
           Innovez l'achat <br />
-          et la vente <br /> auto
+          et la vente
+          <br /> auto
         </div>
       </div>
 
       <div className="w-full sm:w-1/2 px-6 py-10 lg:px-8 bg-white">
-        {notifVisible ? <Notification message={msg} type={type}/> :null}
+        {notifVisible ? <Notification message={msg} type={type} /> : null}
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -89,6 +84,7 @@ export default function Example(  ) {
             src={logo1}
             alt="Your Company"
           />
+
           <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Inscrivez-vous pour commencer
           </h2>
@@ -98,8 +94,12 @@ export default function Example(  ) {
         </div>
 
         <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
-
-          <form className="space-y-6 sm:items-center" action="#" method="POST" onSubmit={handelSubmit}>
+          <form
+            className="space-y-6 sm:items-center"
+            action="#"
+            method="POST"
+            onSubmit={handelSubmit}
+          >
             <div className="relative">
               <input
                 onChange={handelChange}
@@ -190,15 +190,13 @@ export default function Example(  ) {
               </div>
             </div>
 
-
-
             <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-12 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 no-underline"
-                >
-                  Créer un compte
-                </button>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-12 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 no-underline"
+              >
+                Créer un compte
+              </button>
             </div>
           </form>
 
@@ -213,7 +211,12 @@ export default function Example(  ) {
           </div>
         </div>
       </div>
+      {formVisible && (
+        <ChatbotPopup
+          onClose={() => setFormVisible(false)}
+          onSubmit={handelSubmit}
+        />
+      )}
     </div>
-</>
   );
 }

@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+// Predict.jsx
+import React, { useState } from "react";
 
 const Predict = () => {
   const [formData, setFormData] = useState({
-    Marque: '',
-    AnneeModele: '',
-    Kilometrage: '',
-    TypeCarburant: '',
-    PuissanceFiscale: '',
-    BoiteVitesses: '',
-    NombrePortes: '',
-    PremiereMain: '',
-    Etat: '',
-    Airbags: '',
-    Climatisation: '',
-    ABS: '',
-    CDMP3Bluetooth: '',
-    JantesAluminium: '',
+    Marque: "",
+    AnneeModele: "",
+    Kilometrage: "",
+    TypeCarburant: "",
+    PuissanceFiscale: "",
+    BoiteVitesses: "",
+    NombrePortes: "",
+    PremiereMain: "",
+    Etat: "",
+    Airbags: "",
+    Climatisation: "",
+    ABS: "",
+    CDMP3Bluetooth: "",
+    JantesAluminium: "",
   });
 
   const [predictions, setPredictions] = useState(null);
@@ -23,22 +24,22 @@ const Predict = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Utilisez votre propre URL de l'API Django
-    const apiUrl = 'http://localhost:8000/api/model/';
+    // Utilize your own Django API URL
+    const apiUrl = "http://localhost:8000/api/model/";
 
     const response = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',  
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),  
+      body: JSON.stringify(formData),
     });
 
     if (response.ok) {
       const data = await response.json();
       setPredictions(data);
     } else {
-      console.error('Erreur lors de l\'envoi des données du formulaire');
+      console.error("Erreur lors de l'envoi des données du formulaire");
     }
   };
 
@@ -48,71 +49,45 @@ const Predict = () => {
       ...formData,
       [name]: value,
     });
-    console.log(formData)
   };
 
   return (
-    <div className='mt-[90px]'>
-      <h1>Formulaire</h1>
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-2/3 p-8 bg-white rounded shadow-md mt-96">
+        <h1 className="text-2xl font-bold mb-5">Formulaire</h1>
 
-      <form onSubmit={handleSubmit}>
-      
+        <form onSubmit={handleSubmit} className="flex flex-wrap">
+          {Object.keys(formData).map((key) => (
+            <div key={key} className="mb-4 w-1/2 px-2">
+              <label className="text-sm mb-1">{key}</label>
+              <input
+                type={key === "AnneeModele" ? "number" : "text"}
+                name={key}
+                onChange={handleInputChange}
+                className="p-2 border border-gray-300 rounded w-full"
+                required
+              />
+            </div>
+          ))}
 
-        <label>Annee Modele</label>
-        <input  type="number"/>
+          <div className="w-full flex justify-center mt-4">
+            <button
+              type="submit"
+              className="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded"
+            >
+              Soumettre
+            </button>
+          </div>
+        </form>
 
-
-        <label>Annee Modele</label>
-        <input type="number" name="AnneeModele" onChange={handleInputChange} />
-        <label>Marque</label>
-        <input type="text" name="Marque" onChange={handleInputChange} />
-
-        <label>Kilometrage</label>
-        <input type="number" name="Kilometrage" onChange={handleInputChange} />
-
-        <label>Type Carburant</label>
-        <input type="text" name="TypeCarburant" onChange={handleInputChange} />
-
-        <label>Puissance Fiscale</label>
-        <input type="number" name="PuissanceFiscale" onChange={handleInputChange} />
-
-        <label>Boite Vitesses</label>
-        <input type="text" name="BoiteVitesses" onChange={handleInputChange} />
-
-        <label>Nombre Portes</label>
-        <input type="number" name="NombrePortes" onChange={handleInputChange} />
-
-        <label>Premiere Main</label>
-        <input type="text" name="PremiereMain" onChange={handleInputChange} />
-
-        <label>Etat</label>
-        <input type="text" name="Etat" onChange={handleInputChange} />
-
-        <label>Airbags</label>
-        <input type="text" name="Airbags" onChange={handleInputChange} />
-
-        <label>Climatisation</label>
-        <input type="text" name="Climatisation" onChange={handleInputChange} />
-
-        <label>ABS</label>
-        <input type="text" name="ABS" onChange={handleInputChange} />
-
-        <label>CDMP3Bluetooth</label>
-        <input type="text" name="CDMP3Bluetooth" onChange={handleInputChange} />
-
-        <label>Jantes Aluminium</label>
-        <input type="text" name="JantesAluminium" onChange={handleInputChange} />
-
-        <button type="submit">Soumettre</button>
-      </form>
-
-      {predictions && (
-        <div>
-          <h3>Prédictions :</h3>
-          <p>Limite inférieure : {predictions[0]}</p>
-          <p>Limite supérieure : {predictions[1]}</p>
-        </div>
-      )}
+        {predictions && (
+          <div className="mt-4">
+            <h3 className="text-xl font-bold mb-2">Prédictions :</h3>
+            <p>Limite inférieure : {predictions[0]}</p>
+            <p>Limite supérieure : {predictions[1]}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

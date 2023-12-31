@@ -1,49 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import logo from "../../assets/logo.png";
+import AiBot from "../bot/AiBot.jsx";
+import ChatbotPopup from "../bot/ChatbotPopup.jsx";
 
 // Define your options arrays
-const marqueOptions = [
-  { value: "marque1", label: "Marque 1",id:"marque" },
-  { value: "marque2", label: "Marque 2",id:"marque"},
-  { value: "marque3", label: "Marque 3",id:"marque" },
-  // Add more options for marque here
-];
-
-const modeleOptions = [
-  { value: "modele1", label: "Modèle 1",id:"modele" },
-  { value: "modele2", label: "Modèle 2",id:"modele" },
-  { value: "modele3", label: "Modèle 3",id:"modele"},
-  // Add more options for modèle here
-];
-
-const energieOptions = [
-  { value: "diesel", label: "diesel",id:"diesel" },
-  { value: "Essance", label: "Essance",id:"Essance" },
-  { value: "Gpl", label: "Gpl",id:"Gpl"},
-  // Add more options for énergie here
-];
 
 const boiteOptions = [
-  { value: "boite1", label: "Boite 1",id:"boite" },
-  { value: "boite2", label: "Boite 2",id:"boite"  },
-  { value: "boite3", label: "Boite 3",id:"boite"  },
+  { value: "boite1", label: "Boite 1", id: "boite" },
+  { value: "boite2", label: "Boite 2", id: "boite" },
+  { value: "boite3", label: "Boite 3", id: "boite" },
   // Add more options for boite here
-];
-
-const couleurOptions = [
-  { value: "couleur1", label: "Couleur 1",id:"couleur" },
-  { value: "couleur2", label: "Couleur 2",id:"couleur"},
-  { value: "couleur3", label: "Couleur 3",id:"couleur" },
-  // Add more options for couleur here
-];
-
-const wilayaOptions = [
-  { value: "Batna", label: "Batna" ,id:"wilaya"},
-  { value: "Batna", label: "Batna" ,id:"wilaya"},
-  { value: "Batna", label: "Batna" ,id:"wilaya"},
-  // Add more options for wilaya here
 ];
 
 const customStyles = {
@@ -56,20 +23,27 @@ const customStyles = {
   }),
   // Define other custom styles here
 };
-const Annonce1 = ({annonce,setAnnonce}) => {
-  
-  const handelSelectChange = async(e)=>{
-    setAnnonce({...annonce,[e.id]:e.value})
-    console.log('data annonce1',annonce)
-  }
-  const handelChange = (e)=>{
-    setAnnonce({...annonce,[e.target.id]:e.target.value})
- 
-  }
+const Annonce1 = ({ annonce, setAnnonce }) => {
+  const [isChatbotPopupVisible, setChatbotPopupVisible] = useState(false);
+
+  const openChatbotPopup = () => {
+    setChatbotPopupVisible(true);
+  };
+
+  const closeChatbotPopup = () => {
+    setChatbotPopupVisible(false);
+  };
+
+  const handelSelectChange = async (e) => {
+    setAnnonce({ ...annonce, [e.id]: e.value });
+    console.log("data annonce1", annonce);
+  };
+  const handelChange = (e) => {
+    setAnnonce({ ...annonce, [e.target.id]: e.target.value });
+  };
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       {/* Logo in the top-left corner */}
-
 
       {/* Text in the middle of the page */}
       <div className="text-center mt-5">
@@ -86,32 +60,33 @@ const Annonce1 = ({annonce,setAnnonce}) => {
           Annuler
         </Link>
       </div>
+      <AiBot onChatbotClick={openChatbotPopup} />
       {/* Form in the center of the page */}
       <div className="w-full max-w-3xl p-1 mx-auto sm:justify-center">
         <form>
           <div className="p-4 space-y-4">
             {/* Marque (Dropdown) */}
             <div className="space-y-1 relative">
-            <input
-                  type="text"
-                  id="mark"
-                  name="mark"
-                  placeholder="Marque"
-                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
-                  onChange={handelChange}
-                />
+              <input
+                type="text"
+                id="mark"
+                name="mark"
+                placeholder="Marque"
+                className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                onChange={handelChange}
+              />
             </div>
 
             {/* Modèle (Dropdown avec recherche) */}
             <div className="space-y-1 relative">
               <input
-                  type="text"
-                  id="model"
-                  name="model"
-                  placeholder="Modèle"
-                  className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
-                  onChange={handelChange}
-                />
+                type="text"
+                id="model"
+                name="model"
+                placeholder="Modèle"
+                className="w-full p-2 border rounded focus:ring-indigo-600 text-sm text-gray-900 shadow"
+                onChange={handelChange}
+              />
             </div>
 
             {/* L'année et Kilométrage */}
@@ -142,7 +117,7 @@ const Annonce1 = ({annonce,setAnnonce}) => {
             {/* Énergie et Boite */}
             <div className="space-x-4 flex">
               <div className="w-1/2 relative">
-              <input
+                <input
                   type="text"
                   id="energie"
                   name="energie"
@@ -194,7 +169,6 @@ const Annonce1 = ({annonce,setAnnonce}) => {
 
           {/* Deux boutons (Retour et Suivant) */}
           <div className="flex justify-center mt-3 space-x-4">
-
             <Link
               to="/add-announcement-2"
               className="bg-purple-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
@@ -204,11 +178,9 @@ const Annonce1 = ({annonce,setAnnonce}) => {
           </div>
         </form>
       </div>
+      {isChatbotPopupVisible && <ChatbotPopup onClose={closeChatbotPopup} />}
     </div>
   );
 };
 
 export default Annonce1;
-
-
-

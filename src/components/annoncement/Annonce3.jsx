@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import {api} from '../../api/api.js'
-const Annonce3 = ({annonce,setAnnonce,owner}) => {
+import { api } from "../../api/api.js";
+import AiBot from "../bot/AiBot.jsx";
+import ChatbotPopup from "../bot/ChatbotPopup.jsx";
+
+const Annonce3 = ({ annonce, setAnnonce, owner }) => {
+  const [isChatbotPopupVisible, setChatbotPopupVisible] = useState(false);
+
+  const openChatbotPopup = () => {
+    setChatbotPopupVisible(true);
+  };
+
+  const closeChatbotPopup = () => {
+    setChatbotPopupVisible(false);
+  };
+
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
-    setAnnonce({...annonce,[e.target.id]:e.target.value})
-    console.log('data annonce 3',annonce)
+    setAnnonce({ ...annonce, [e.target.id]: e.target.value });
+    console.log("data annonce 3", annonce);
   };
 
   const handelSubmit = async (event) => {
@@ -17,23 +30,18 @@ const Annonce3 = ({annonce,setAnnonce,owner}) => {
     try {
       const response = await api.addCar(annonce);
       if (response.status === 200) {
-        console.log('Success!');
+        console.log("Success!");
       } else {
-        console.error('Error:', response.statusText);
+        console.error("Error:", response.statusText);
         // Handle the error, show a message to the user, etc.
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
     }
   };
-  
-
 
   return (
     <div className="h-screen flex flex-col justify-center items-center">
- 
-
-
       {/* Button (Annuler) in the top-right corner */}
       <div className="absolute top-0 right-0 p-4">
         <Link
@@ -43,6 +51,7 @@ const Annonce3 = ({annonce,setAnnonce,owner}) => {
           Annuler
         </Link>
       </div>
+      <AiBot onChatbotClick={openChatbotPopup} />
 
       {/* Text in the middle of the page */}
       <div className="text-center mt-1">
@@ -102,7 +111,7 @@ const Annonce3 = ({annonce,setAnnonce,owner}) => {
       {/* Deux boutons (Retour et Suivant)  */}
       <div className="flex justify-center mt- space-x-4">
         <Link
-          to="/annonce2"
+          to="/add-announcement-2"
           className="bg-gray-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
         >
           Retour
@@ -114,16 +123,15 @@ const Annonce3 = ({annonce,setAnnonce,owner}) => {
           Ajouter 
         </Link> */}
 
-
-        <button className="bg-gray-500 text-white p-3 rounded bg-purple-500 hover:bg-purple-700 no-underline"
-        type="submit"
-        onClick={handelSubmit}
-        > 
-        Ajouter
-                
+        <button
+          className="bg-gray-500 text-white p-3 rounded bg-purple-500 hover:bg-purple-700 no-underline"
+          type="submit"
+          onClick={handelSubmit}
+        >
+          Ajouter
         </button>
- 
       </div>
+      {isChatbotPopupVisible && <ChatbotPopup onClose={closeChatbotPopup} />}
     </div>
   );
 };

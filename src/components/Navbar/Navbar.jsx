@@ -2,7 +2,6 @@ import { Fragment, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import Account from '../../assets/Account.png'
 const navigation = [
   { name: "Acceuil", href: "#", current: true },
   { name: "Annonces", href: "#", current: false },
@@ -39,10 +38,13 @@ export default function Example() {
   const handleAddClick = () => {
     navigate("/login");
   };
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
 
   return (
     <div className="bg-white shadow fixed w-full z-10 top-0 ">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
         <style>
           {`
             /* Style for the links */
@@ -61,10 +63,12 @@ export default function Example() {
         </style>
         <div className="flex items-center justify-between h-16 ">
           <div className="flex items-center">
+           <a href="/" className="cursor-pointer">
             <img className="h-14 w-14" src={logo} alt="Your Logo" />
+            </a>
           </div>
           <div className="hidden sm:block sm:ml-6">
-            <div className="flex items-center justify-center space-x-11">
+            <div className="flex items-center justify-center space-x-20">
               {navigation.map((item) => (
                 <a
                   key={item.name}
@@ -79,22 +83,25 @@ export default function Example() {
                   {item.name}
                 </a>
               ))}
-                  {isMediumScreen ? null : ( // Button only for full screen
-                    <button className="bg-transparent hover:bg-transparent " onClick={handleAddClick}>
-                      <img src={Account} alt="" className="h-[25px] w-[25px]"  />
-                    </button>
-                    
-      
-                  )}
               {isMediumScreen ? null : ( // Button only for full screen
-                <button className="bg-purple-600 text-white rounded-md px-1 py-1" onClick={handleAddClick}>
-                  Ajouter Annonce
+                <button
+                  className="bg-purple-600 text-white rounded-md px-2 py-2"
+                  onClick={handleAddClick}
+                >
+                  AjouterAnnonce
                 </button>
-                
-  
+              )}
+              {isMediumScreen ? null : ( // Button only for full screen
+                <button
+                  className="bg-purple-600 text-white rounded-md px-2 py-2"
+                  onClick={handleLoginClick}
+                >
+                  Connexion
+                </button>
               )}
             </div>
           </div>
+
           {isMediumScreen && ( // Display the menu icon on medium screens
             <div className="sm:hidden">
               <button
@@ -145,11 +152,8 @@ export default function Example() {
                   <button
                     className="bg-purple-600 text-white rounded-md px-3 py-2" // Button in menu
                   >
-                    Ajouter annonce
+                    ajouter annonce
                   </button>
-         
-
-                   
                 </div>
               </>
             )}

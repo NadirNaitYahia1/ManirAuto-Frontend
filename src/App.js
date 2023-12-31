@@ -43,7 +43,7 @@ function App() {
     <div className='App'>
       <Router>
         <Navbar/>
-        <AiBot/>
+        
         <Routes>  
             <Route path="/"  element={<Pageuser />} /> 
             <Route path="/advertisement-detail" element={<AdvertisementDetail />} />
