@@ -4,7 +4,7 @@ import AdvertisementViewerPage from "../components/user/AdvertisementViewerPage"
 import Apropos from "../components/user/Apropos";
 import AiBot from "../components/bot/AiBot";
 import ChatbotPopup from "../components/bot/ChatbotPopup";
-
+import ContactUs from "../components/user/ContactUs"
 const Pageuser = () => {
   const [advertisementData, setAdvertisementData] = useState([]);
   const [isChatbotPopupVisible, setChatbotPopupVisible] = useState(false);
@@ -27,6 +27,7 @@ const Pageuser = () => {
           setData={setAdvertisementData}
         />
         <Apropos />
+        <ContactUs />
         {isChatbotPopupVisible && <ChatbotPopup onClose={closeChatbotPopup} />}
       </div>
     </div>
