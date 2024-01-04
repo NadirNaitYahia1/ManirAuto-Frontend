@@ -172,7 +172,7 @@ const AdvertisementViewer = ({ data, setData }) => {
                     backgroundColor: "#F2F2F2",
                     padding: "5px",
                     borderRadius: "15px",
-                    margin: "5px", // Optional: Add some spacing between boxes
+                    margin: "5px",
                   }}
                 >
                   <p
@@ -180,7 +180,7 @@ const AdvertisementViewer = ({ data, setData }) => {
                       color: "#000",
                       fontSize: "16px",
                       fontWeight: "normal",
-                      margin: "0", // Remove default margin for <p> element
+                      margin: "0",
                     }}
                   >
                     airbag
