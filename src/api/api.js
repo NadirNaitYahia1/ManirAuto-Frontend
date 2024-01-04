@@ -69,12 +69,30 @@ const Registre = async (user) => {
   
 
 
-
-
+  const GetCarById = async (id) => {
+    try {
+      const response = await fetch(baseUrl + `api/getCarById/${id}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error(`Fetch error: ${error.message}`);
+    }
+  };
   
   export const api = {
     LogIn,
     Registre,
-    addCar
+    addCar,
+    GetCarById,
   };
   

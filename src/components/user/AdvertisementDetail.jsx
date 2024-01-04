@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import pic1 from "../../assets/pic1.png";
 import pic2 from "../../assets/pic2.png";
 import pic3 from "../../assets/pic3.png";
@@ -6,8 +6,33 @@ import detailImage from "../../assets/detail.png";
 import phone from "../../assets/Phone.png";
 import AiBot from "../bot/AiBot"; // Assurez-vous d'importer le composant AiBot correctement
 import ChatbotPopup from "../bot/ChatbotPopup";
+import { api } from "../../api/api";
+
 
 const CarDetails = () => {
+
+
+  useEffect(() => {
+    // get id from url
+    const id = parseInt(window.location.pathname.split("/")[2]);
+    const fetchData = async () => {
+      try {
+        const response = await api.GetCarById((id));  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error("Error during fetch cars:", error);
+      }
+    };
+  
+    fetchData(); 
+  
+  }, []);  
+  
+
   const carData = {
     phoneNumber: "123-456-7890",
     price: "$25,000",

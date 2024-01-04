@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import imgPhone from '../../assets/Phone.png';
+import { useNavigate } from 'react-router-dom';
  
 
 const AdvertisementViewer = ({data,setData}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+
 
 
   useEffect(() => {
@@ -54,6 +57,11 @@ const AdvertisementViewer = ({data,setData}) => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  
+  const pathDettails = (id)=>{
+    navigate(`/advertisement-detail/${id}`)
+  }
 
   return (
     <div className='cars mx-auto mt-5 md:ms-4 basis-4/5'>
@@ -138,7 +146,7 @@ const AdvertisementViewer = ({data,setData}) => {
 
 
 
-              <button className='bg-userButton rounded-[15px] px-5 py-3 text-userButtonText hover:bg-blue-800'>Voir Plus</button>
+              <button className='bg-userButton rounded-[15px] px-5 py-3 text-userButtonText hover:bg-blue-800' onClick={()=>pathDettails(car.idCar)}>Voir Plus</button>
             </div>
           </div>
         ))}

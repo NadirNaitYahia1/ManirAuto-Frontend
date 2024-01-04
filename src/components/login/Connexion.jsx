@@ -9,7 +9,7 @@ import Notification from "../notification/Notification";
 import AiBot from "../bot/AiBot";
 import ChatbotPopup from "../bot/ChatbotPopup";
 
-const Connexion = ({ annonce, setAnnonce }) => {
+const Connexion = ({ annonce, setAnnonce,loged,setLoged }) => {
   const [notifVisible, setNotifVisible] = useState(false);
   const [msg, setMessage] = useState("");
   const [type, setType] = useState("");
@@ -40,7 +40,10 @@ const Connexion = ({ annonce, setAnnonce }) => {
         const data = await response.json();
         console.log("data", data);
         localStorage.setItem("token", data.jwt);
-        navigate("/add-announcement-1");
+        
+        setLoged(true);
+
+        navigate("/");
         setNotifVisible(true);
         setMessage("Registration successful! You can now log in.");
         setType("success");

@@ -3,11 +3,13 @@ import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 const navigation = [
-  { name: "Acceuil", href: "#", current: true },
-  { name: "Annonces", href: "#", current: false },
+  { name: "Annonces", href: "/", current: true },
   { name: "Apropos", href: "#", current: false },
-  { name: "Contact", href: "#", current: false },
+  { name: "Contact Us", href: "#", current: false },
 ];
+
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,7 +38,7 @@ export default function Example() {
 
   const navigate = useNavigate();
   const handleAddClick = () => {
-    navigate("/login");
+    navigate("/loged/add-announcement-1");
   };
   const handleLoginClick = () => {
     navigate("/login");

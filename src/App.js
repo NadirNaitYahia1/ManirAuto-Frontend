@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import'./index.css'
 import { BrowserRouter as Router, Routes, Route  } from "react-router-dom";
@@ -13,6 +13,9 @@ import Annonce3 from "./components/annoncement/Annonce3.jsx";
 import { useState } from 'react';
 import AiBot from './components/bot/AiBot.jsx';
 import Predict from './components/bot/Predict.jsx';
+import PrivateRoutes, { Redirect } from './utils/utils.js'
+import AdvertisementViewerLoged from './components/logedUser/AdvertisementViewerLoged.jsx';
+import NavbarLoged from './components/Navbar/NavbarLoged.jsx';
 
 
 function App() {
@@ -39,20 +42,38 @@ function App() {
     }
   )
 
+
+
+  const [loged,setLoged]=useState(false)
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if(token){
+        setLoged(true)
+    }
+} 
+, [])
+
   return (
     <div className='App'>
       <Router>
-        <Navbar/>
+        {
+        !loged ? <Navbar/> : <NavbarLoged/>  
+        }
         
         <Routes>  
             <Route path="/"  element={<Pageuser />} /> 
-            <Route path="/advertisement-detail" element={<AdvertisementDetail />} />
-            <Route path="/login" element={<Connexion annonce={annonce} setAnnonce={setAnnonce}  />} />
-            <Route path="/register" element={<Inscription2 />} />  
-            <Route path="/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}  />} />
-            <Route path="/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}  />} />
-            <Route path="/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce}  />} />
-            <Route path="/predict" element={ <Predict/>} />
+            <Route path="/advertisement-detail/:id" element={<AdvertisementDetail />} />
+              <Route path="/login" element={<Connexion annonce={annonce} setAnnonce={setAnnonce}  loges={loged} setLoged={setLoged} />} />}
+              <Route path="/register" element={<Inscription2 />} />  
+            {/* <Route path="/predict" element={ <Predict/>} /> */}
+
+            {/* <Route path="/loged" element={<PrivateRoutes/>} > */}
+              <Route path="loged/mes-annonces" element={<AdvertisementViewerLoged/>} />
+              <Route path="/loged/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}  />} />
+              <Route path="/loged/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}  />} />
+              <Route path="/loged/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce}  />} />
+            {/* </Route> */}
         </Routes> 
       </Router>
     </div>
