@@ -93,7 +93,7 @@ export default function Example() {
               )}
               {isMediumScreen ? null : ( // Button only for full screen
                 <button
-                  className="bg-purple-600 text-white rounded-md px-2 py-2"
+                  className="bg-blue-600 text-white rounded-md px-2 py-2 hover:bg-blue-800"
                   onClick={handleLoginClick}
                 >
                   Connexion
