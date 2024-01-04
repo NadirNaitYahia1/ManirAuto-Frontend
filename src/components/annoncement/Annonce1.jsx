@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import AiBot from "../bot/AiBot.jsx";
 import ChatbotPopup from "../bot/ChatbotPopup.jsx";
-
+import { useNavigate } from "react-router-dom";
 // Define your options arrays
 
 const boiteOptions = [
@@ -41,11 +41,10 @@ const Annonce1 = ({ annonce, setAnnonce }) => {
   const handelChange = (e) => {
     setAnnonce({ ...annonce, [e.target.id]: e.target.value });
   };
+
+  const navigate = useNavigate();
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-      {/* Logo in the top-left corner */}
-
-      {/* Text in the middle of the page */}
       <div className="text-center mt-5">
         <h1 className="text-4xl font-bold text-black mb-1 mt-14 sm:justify-center">
           Dites-nous les caractéristiques de base <br /> de votre voiture.
@@ -77,7 +76,7 @@ const Annonce1 = ({ annonce, setAnnonce }) => {
               />
             </div>
 
-            {/* Modèle (Dropdown avec recherche) */}
+ 
             <div className="space-y-1 relative">
               <input
                 type="text"
@@ -88,8 +87,7 @@ const Annonce1 = ({ annonce, setAnnonce }) => {
                 onChange={handelChange}
               />
             </div>
-
-            {/* L'année et Kilométrage */}
+ 
             <div className="space-x-4 flex">
               <div className="w-1/2 relative">
                 <input
@@ -114,7 +112,7 @@ const Annonce1 = ({ annonce, setAnnonce }) => {
               </div>
             </div>
 
-            {/* Énergie et Boite */}
+ 
             <div className="space-x-4 flex">
               <div className="w-1/2 relative">
                 <input
@@ -167,10 +165,10 @@ const Annonce1 = ({ annonce, setAnnonce }) => {
             </div>
           </div>
 
-          {/* Deux boutons (Retour et Suivant) */}
+ 
           <div className="flex justify-center mt-3 space-x-4">
             <Link
-              to="/add-announcement-2"
+              to="/loged/add-announcement-2"
               className="bg-purple-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
             >
               Suivant

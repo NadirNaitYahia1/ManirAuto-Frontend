@@ -111,7 +111,7 @@ const Annonce3 = ({ annonce, setAnnonce, owner }) => {
       {/* Deux boutons (Retour et Suivant)  */}
       <div className="flex justify-center mt- space-x-4">
         <Link
-          to="/add-announcement-2"
+          to="/loged/add-announcement-2"
           className="bg-gray-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
         >
           Retour

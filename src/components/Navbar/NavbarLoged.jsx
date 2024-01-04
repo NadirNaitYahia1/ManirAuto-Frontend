@@ -3,7 +3,9 @@ import { Fragment, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import Account from '../../assets/Account.png'
+import logoutImg from '../../assets/logout.png'
+import { api } from "../../api/api";
+
 
 
 const navigation = [
@@ -19,6 +21,18 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 const NavbarLoged = () => {
+
+    const Logout = async() => {
+      try{
+        const respone =await api.LogOut()
+        if (respone.status === 200) {
+          localStorage.removeItem('token')
+          window.location.reload();
+        }
+      }catch(error){
+        console.error("Error during logout:", error);
+      }
+    }
 
     const [isMediumScreen, setIsMediumScreen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -89,9 +103,21 @@ const NavbarLoged = () => {
                     {item.name}
                   </a>
                 ))}
+                    {isMediumScreen ? null : (  
+                <button
+                  className="bg-purple-600 text-white rounded-md px-1 py-2"
+                  onClick={handleAddClick}
+                >
+                  AjouterAnnonce
+                </button>
+              )}
+                 
+                 <button  onClick={Logout} className='bg-transparent hover:bg-transparent'>
+                <img src={logoutImg} alt="logout-img " className='h-[30px] w-[30px] cursor-pointer' />
+                 </button>
+                
+                 
 
-                <img src={Account}  alt='accountProfil'/>
-              
               </div>
             </div>
   
@@ -146,8 +172,16 @@ const NavbarLoged = () => {
                       className="bg-purple-600 text-white rounded-md px-3 py-2" // Button in menu
                     >
                       ajouter annonce
+                    </button> 
+
+                    <button>
+                      <img src={logoutImg} alt="logout-img" />
                     </button>
+
+
+                                             
                   </div>
+
                 </>
               )}
             </Disclosure>

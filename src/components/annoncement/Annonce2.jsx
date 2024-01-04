@@ -72,13 +72,13 @@ const Annonce2 = ({ annonce, setAnnonce }) => {
       {/* Deux boutons (Retour et Suivant)  */}
       <div className="flex justify-between mt-8 space-x-4">
         <Link
-          to="/add-announcement-1"
+          to="/loged/add-announcement-1"
           className="bg-gray-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
         >
           Retour
         </Link>
         <Link
-          to="/add-announcement-3"
+          to="/loged/add-announcement-3"
           className="bg-purple-500 text-white p-3 rounded hover:bg-purple-700 no-underline"
         >
           Suivant
