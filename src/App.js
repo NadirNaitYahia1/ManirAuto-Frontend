@@ -19,6 +19,13 @@ import NavbarLoged from './components/Navbar/NavbarLoged.jsx';
 
 
 function App() {
+
+
+ 
+
+
+
+
   const [annonce,setAnnonce] =useState(
     {
       mark: '',
@@ -42,7 +49,7 @@ function App() {
     }
   )
 
-
+    
 
   const [loged,setLoged]=useState(false)
   
@@ -51,6 +58,9 @@ function App() {
     if(token){
         setLoged(true)
     }
+    else{
+        setLoged(false)
+      }
 } 
 , [])
 
@@ -58,7 +68,7 @@ function App() {
     <div className='App'>
       <Router>
         {
-        !loged ? <Navbar/> : <NavbarLoged/>  
+        !loged ? <Navbar loged={loged}/> : <NavbarLoged/>  
         }
         
         <Routes>  
@@ -66,9 +76,6 @@ function App() {
             <Route path="/advertisement-detail/:id" element={<AdvertisementDetail />} />
               <Route path="/login" element={<Connexion annonce={annonce} setAnnonce={setAnnonce}  loges={loged} setLoged={setLoged} />} />}
               <Route path="/register" element={<Inscription2 />} />  
-            {/* <Route path="/predict" element={ <Predict/>} /> */}
-
-            {/* <Route path="/loged" element={<PrivateRoutes/>} > */}
               <Route path="loged/mes-annonces" element={<AdvertisementViewerLoged/>} />
               <Route path="/loged/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}  />} />
               <Route path="/loged/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}  />} />

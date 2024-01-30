@@ -67,6 +67,19 @@
         width: 40px;
         height: 40px;
         border-radius: 10px;
+        
+    }
+    .button-pagination-active{
+        background: #7A63F0;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 70px;
+        letter-spacing: 0em;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        
     }
  
     .button-pagination-prev-next{

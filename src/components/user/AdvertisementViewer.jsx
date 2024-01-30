@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import imgPhone from "../../assets/Phone.png";
 import location from "../../assets/Location.png";
 import { useNavigate } from "react-router-dom";
+import carImg from '../../assets/carImg.jpg'
 const AdvertisementViewer = ({ data, setData }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -66,14 +67,15 @@ const AdvertisementViewer = ({ data, setData }) => {
       <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-3">
         {currentData.map((car, index) => (
           <div
-            key={index}
-            className="shadow-[0px_2px_3px_0px_#7A63F0] pb-4 rounded-[15px] border border-solid border-gray-300 border-opacity-80"
+          key={index}
+          className="shadow-[0px_2px_3px_0px_#7A63F0] pb-4 rounded-[15px] border border-solid border-gray-300 border-opacity-80"
           >
+          {console.log(car.image)}
             <div className="flex justify-center mt-3">
               {/* Affichage de l'image */}
               <img
                 className="w-full h-auto rounded-t-lg"
-                src={car.image}
+                src={carImg}
                 alt="car-image"
               />
             </div>
@@ -367,7 +369,7 @@ const AdvertisementViewer = ({ data, setData }) => {
 
       <div className="pagination flex justify-center mt-5">
         <button
-          className="button-pagination-prev-next button-pagination"
+          className="button-pagination-prev-next button-pagination mx-1"
           onClick={prev}
         >
           Prev
@@ -375,10 +377,10 @@ const AdvertisementViewer = ({ data, setData }) => {
         {numbers.map((number, index) => (
           <button
             key={index}
-            className="mx-1 button-pagination"
+            className={currentPage === number ? " button-pagination-active button-pagination mx-1 " : "active button-pagination-number button-pagination mx-1 "}
             onClick={() => setCurrentPage(number)}
           >
-            {number}
+              {number}
           </button>
         ))}
         <button

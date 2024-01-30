@@ -2,20 +2,39 @@ import { Fragment, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-const navigation = [
-  { name: "Annonces", href: "/", current: true },
-  { name: "Apropos", href: "#", current: false },
-  { name: "Contact Us", href: "#", current: false },
-];
-
-
-
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Example() {
+
+  const [navigation, setNavigation] = useState([
+    { name: "Annonces", href: "/", current: true, h: '550' },
+    { name: "Apropos", href: "/", current: false, h: '1950' },
+    { name: "ContactUs", href: "/", current: false, h: '2300' },
+  ]);
+  
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+  
+  const changeItem =(item)=>{
+    window.scrollTo(0,item.h)
+    navigate(item.href);
+    setNavigation(navigation.map((i) => {
+      if (i.name === item.name) {
+        return {
+          ...i,
+          current: true,
+        };
+      } else {
+        return {
+          ...i,
+          current: false,
+        };
+      }
+    }
+    ))
+  
+  }
   const [isMediumScreen, setIsMediumScreen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -38,7 +57,7 @@ export default function Example() {
 
   const navigate = useNavigate();
   const handleAddClick = () => {
-    navigate("/loged/add-announcement-1");
+    navigate("/login");
   };
   const handleLoginClick = () => {
     navigate("/login");
@@ -72,18 +91,20 @@ export default function Example() {
           <div className="hidden sm:block sm:ml-6">
             <div className="flex items-center justify-center space-x-20">
               {navigation.map((item) => (
-                <a
+                <div
                   key={item.name}
-                  href={item.href}
                   className={classNames(
-                    "px-1 py-2 nav-link font-semibold",
-                    item.current ? "text-purple-600" : "text-gray-700",
+                    "px-1 py-2  font-semibold bg-white nav-link cursor-pointer",
+                    item.current ? "text-gray-700 border-b-4  border-purple-500" : "text-gray-700",
                     "rounded-md text-base" // Adjust text size here
                   )}
+                  onClick={
+                    ()=>changeItem(item)
+                  }
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
-                </a>
+                </div>
               ))}
               {isMediumScreen ? null : ( // Button only for full screen
                 <button
@@ -165,3 +186,5 @@ export default function Example() {
     </div>
   );
 }
+
+

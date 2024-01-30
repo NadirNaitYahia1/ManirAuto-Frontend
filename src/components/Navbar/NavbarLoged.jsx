@@ -8,26 +8,51 @@ import { api } from "../../api/api";
 
 
 
-const navigation = [
-  { name: "Annonces", href: "/", current: true },
-  { name: "Mes Annonces", href: "/loged/mes-annonces/", current: true },
-  { name: "Contact Us", href: "#", current: false },
-];
 
-
-
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 const NavbarLoged = () => {
+
+  const [navigation, setNavigation] = useState([
+    { name: "Annonces", href: "/", current: true, h: '550' },
+    { name: "Apropos", href: "/", current: false, h: '1950' },
+    { name: "ContactUs", href: "/", current: false, h: '2300' },
+    { name: "Mes Annonces", href: "/loged/mes-annonces/", current: false },
+
+  ]);
+  
+  const changeItem =(item)=>{
+    window.scrollTo(0,item.h)
+    navigate(item.href);
+    setNavigation(navigation.map((i) => {
+      if (i.name === item.name) {
+        return {
+          ...i,
+          current: true,
+        };
+      } else {
+        return {
+          ...i,
+          current: false,
+        };
+      }
+    }
+    ))
+  
+  }
+  
+  
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
     const Logout = async() => {
       try{
         const respone =await api.LogOut()
         if (respone.status === 200) {
           localStorage.removeItem('token')
-          window.location.reload();
+          console.log('aqlin da')
+          // navigate('/')
+          window.location.reload()
         }
       }catch(error){
         console.error("Error during logout:", error);
@@ -88,20 +113,22 @@ const NavbarLoged = () => {
               </a>
             </div>
             <div className="hidden sm:block sm:ml-6">
-              <div className="flex items-center justify-center space-x-20">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      "px-1 py-2 nav-link font-semibold",
-                      item.current ? "text-purple-600 border-b-purple-500" : "text-gray-700",
-                      "rounded-md text-base" // Adjust text size here
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </a>
+                         <div className="flex items-center justify-center space-x-20">
+              {navigation.map((item) => (
+                <div
+                  key={item.name}
+                  className={classNames(
+                    "px-1 py-2  font-semibold bg-white nav-link cursor-pointer",
+                    item.current ? "text-gray-700 border-b-4  border-purple-500" : "text-gray-700",
+                    "rounded-md text-base" // Adjust text size here
+                  )}
+                  onClick={
+                    ()=>changeItem(item)
+                  }
+                  aria-current={item.current ? "page" : undefined}
+                >
+                  {item.name}
+                </div>
                 ))}
                     {isMediumScreen ? null : (  
                 <button
