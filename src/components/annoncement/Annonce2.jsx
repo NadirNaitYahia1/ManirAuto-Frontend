@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AiBot from "../bot/AiBot.jsx";
 import ChatbotPopup from "../bot/ChatbotPopup.jsx";
-const Annonce2 = ({ annonce, setAnnonce }) => {
+const Annonce2 = ({ annonce, setAnnonce,setAlert}) => {
   // const handelSelectChange = (e)=>{
   //   setAnnonce({...annonce,[e.id]:e.value})
   // }
@@ -19,6 +19,7 @@ const Annonce2 = ({ annonce, setAnnonce }) => {
     setAnnonce({ ...annonce, [e.target.id]: e.target.value });
     console.log("data annonce2", annonce);
   };
+  useEffect(()=>{setAlert(false)},[])
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       {/* Button (Annuler) in the top-right corner */}

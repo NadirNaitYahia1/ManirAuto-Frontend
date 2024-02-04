@@ -63,6 +63,8 @@ function App() {
       }
 } 
 , [])
+const [alert, setAlert] = useState(false);
+
 
   return (
     <div className='App'>
@@ -77,9 +79,9 @@ function App() {
               <Route path="/login" element={<Connexion annonce={annonce} setAnnonce={setAnnonce}  loges={loged} setLoged={setLoged} />} />}
               <Route path="/register" element={<Inscription2 />} />  
               <Route path="loged/mes-annonces" element={<AdvertisementViewerLoged/>} />
-              <Route path="/loged/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}  />} />
-              <Route path="/loged/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}  />} />
-              <Route path="/loged/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce}  />} />
+              <Route path="/loged/add-announcement-1" element={<Annonce1 annonce={annonce} setAnnonce={setAnnonce}   alert={alert} setAlert={setAlert}/>} />
+              <Route path="/loged/add-announcement-2" element={<Annonce2  annonce={annonce} setAnnonce={setAnnonce}   setAlert={setAlert}  />} />
+              <Route path="/loged/add-announcement-3" element={<Annonce3   annonce={annonce} setAnnonce={setAnnonce}   alert={alert} setAlert={setAlert}/>} />
             {/* </Route> */}
         </Routes> 
       </Router>

@@ -4,9 +4,11 @@ import logo from "../../assets/logo.png";
 import { api } from "../../api/api.js";
 import AiBot from "../bot/AiBot.jsx";
 import ChatbotPopup from "../bot/ChatbotPopup.jsx";
+import { useNavigate } from "react-router-dom";
 
-const Annonce3 = ({ annonce, setAnnonce, owner }) => {
+const Annonce3 = ({ annonce, setAnnonce, owner,alert,setAlert }) => {
   const [isChatbotPopupVisible, setChatbotPopupVisible] = useState(false);
+  const navigate = useNavigate();
 
   const openChatbotPopup = () => {
     setChatbotPopupVisible(true);
@@ -27,10 +29,17 @@ const Annonce3 = ({ annonce, setAnnonce, owner }) => {
 
   const handelSubmit = async (event) => {
     event.preventDefault();
+    setAlert(true)
+    navigate("/loged/add-announcement-1");
+    
+
     try {
       const response = await api.addCar(annonce);
+      console.log(response.status);
+
       if (response.status === 200) {
         console.log("Success!");
+        navigate("/loged/add-announcement-1");
       } else {
         console.error("Error:", response.statusText);
         // Handle the error, show a message to the user, etc.
@@ -42,6 +51,7 @@ const Annonce3 = ({ annonce, setAnnonce, owner }) => {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center">
+
       {/* Button (Annuler) in the top-right corner */}
       <div className="absolute top-0 right-0 p-4">
         <Link

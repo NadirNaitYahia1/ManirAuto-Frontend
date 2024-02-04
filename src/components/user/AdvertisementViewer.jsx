@@ -96,31 +96,7 @@ const AdvertisementViewer = ({ data, setData }) => {
               }}
             >
               {/* Attribute prix */}
-              {car.prix && (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "#F2F2F2",
-                    padding: "5px",
-                    borderRadius: "15px",
-                    margin: "5px",
-                  }}
-                >
-                  <p
-                    style={{
-                      color: "#000",
-                      fontSize: "16px",
-                      fontWeight: "normal",
-                      margin: "0",
-                    }}
-                  >
-                    {car.prix}DA
-                  </p>
-                </div>
-              )}
-
+            
               {/* Attribute kilometrage */}
               {car.kilometrage && (
                 <div
@@ -350,21 +326,53 @@ const AdvertisementViewer = ({ data, setData }) => {
                 </p>
               </div>
             )}
-            <div className="mt-4 flex items-center justify-between mx-2">
-              <img src={imgPhone} alt="img-phone" className="h-10 w-10 mr-2" />
+
+            <div className="mt-4 flex items-center   ">
+              <img src={imgPhone} alt="img-phone" className="h-10 w-10 " />
               <p className="text-phoneColorText text-base font-normal tracking-normal">
                 {car.phone}
               </p>
-              <img src={location} alt="img-phone" className="h-8 w-7" />
+              <img src={location} alt="img-phone" className="h-8 w-7 ml-10" />
               <p className="text-phoneColorText text-base font-normal tracking-normal mr-4">
                 {car.wilaya}
               </p>
-              <button className="bg-userButton rounded-[15px] px-1 py-2 text-userButtonText hover:bg-blue-800 " onClick={()=>pathDettails(car.idCar)}>
-                Voir Plus
-              </button>
+    
             </div>
+            {car.prix && (
+                <div  
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                    borderRadius: "15px",
+                    margin: "5px",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "BLue",
+                      fontSize: "19px",
+                      fontWeight: "bold",
+                      margin: "0",
+                    }}
+                  >
+                    {car.prix}DA
+                  </p>
+                  <button
+  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-1 border border-blue-700 rounded-[15px]"
+  onClick={() => pathDettails(car.idCar)}
+  style={{ fontSize: '14px', height: '40px', width: '120px' }}
+>
+  Voir Plus
+</button>
+
+                </div>
+              )}
+
           </div>
         ))}
+
       </div>
 
       <div className="pagination flex justify-center mt-5">

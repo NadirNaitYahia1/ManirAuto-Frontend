@@ -1,39 +1,47 @@
 import React, { useState, useRef, useEffect } from "react";
-
+import optionMarque from '../../api/marque_model.json'
 const ChatbotPopup = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     Marque: "",
+    Model:"",
     AnneeModele: "",
     Kilometrage: "",
     TypeCarburant: "Essence",
     BoiteVitesses: "Manuelle",
     PuissanceFiscale: "",
-    NombrePortes: "",
-    PremiereMain: "",
+    NombrePortes: "4",
+    PremiereMain: "3",
     Etat: "Très bon",
-    Airbags: "False",
-    Climatisation: "False",
-    ABS: "False",
-    CDMP3Bluetooth: "False",
-    JantesAluminium: "False",
+    Airbags: "true",
+    Climatisation: "true",
+    ABS: "true",
+    CDMP3Bluetooth: "true",
+    JantesAluminium: "true",
   });
+
+  const [modelsOfMarque,setmodelsOfMarque]=useState([])
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ?  checked.toString() : value
     }));
-    console.log(formData);
   };
-
+  
+  useEffect(() => {
+    console.log('formData', formData);
+  }, [formData]); 
   const [predictions, setPredictions] = useState(null);
-
+  const [submited,setSubmited]=useState(false)
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setSubmited(true)
+    setPredictions(null)
     // Utilize your own Django API URL
     const apiUrl = "http://localhost:8000/api/model/";
+
 
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -67,6 +75,14 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
     };
   }, []);
 
+
+  const handleMarqueChange = (e) => {
+    const selectedMarque = e.target.value;
+    const selectedMarqueData = optionMarque.find((item) => item.marque === selectedMarque);
+    setmodelsOfMarque(selectedMarqueData ? selectedMarqueData.models : []);
+  };
+
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center  ">
       <div
@@ -80,17 +96,45 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
           <strong>Chatbot Form</strong>
         </h6>
         <form onSubmit={handleSubmit} className="flex flex-wrap">
-          <div className="mb-4 w-1/2 px-2">
+        <div className="mb-4 w-1/2 px-2">
             <label className="text-sm mb-1">Marque</label>
-            <input
+            <select
               type="text"
               name="Marque"
               value={formData.Marque}
+              onChange={(e) => {
+                handleInputChange(e);
+                handleMarqueChange(e);
+              }}
+              className="p-2 border border-gray-300 rounded w-full"
+              required
+            >
+              {optionMarque.map((marque) => (
+                <option key={marque.marque} value={marque.marque}>
+                  {marque.marque}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-4 w-1/2 px-2">
+            <label className="text-sm mb-1">Modele</label>
+            <select
+              type="text"
+              name="Model"
+              value={formData.Model}
               onChange={handleInputChange}
               className="p-2 border border-gray-300 rounded w-full"
               required
-            />
+            >
+              {modelsOfMarque.map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
+            </select>
           </div>
+
           <div className="mb-4 w-1/2 px-2">
             <label className="text-sm mb-1">Année Modèle</label>
             <input
@@ -162,7 +206,7 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
               required
             />
           </div>
-          <div className="mb-4 w-1/2 px-2">
+          {/* <div className="mb-4 w-1/2 px-2">
             <label className="text-sm mb-1">Première Main</label>
             <input
               type="number"
@@ -172,7 +216,7 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
               className="p-2 border border-gray-300 rounded w-full"
               required
             />
-          </div>
+          </div> */}
           <div className="mb-4 w-1/2 px-2">
             <label className="text-sm mb-1">État</label>
             <select
@@ -190,55 +234,62 @@ const ChatbotPopup = ({ onClose, onSubmit }) => {
             </select>
           </div>
           <div className="mb-4 w-1/2 px-2">
-            <label className="text-sm mb-1">Airbags</label>
-            <input
-              type="checkbox"
-              name="Airbags"
-              checked={formData.Airbags}
-              onChange={handleInputChange}
-              className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
-            />
-          </div>
-          <div className="mb-4 w-1/2 px-2">
-            <label className="text-sm mb-1">Climatisation</label>
-            <input
-              type="checkbox"
-              name="Climatisation"
-              checked={formData.Climatisation}
-              onChange={handleInputChange}
-              className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
-            />
-          </div>
-          <div className="mb-4 w-1/2 px-2">
-            <label className="text-sm mb-1">ABS</label>
-            <input
-              type="checkbox"
-              name="ABS"
-              checked={formData.ABS}
-              onChange={handleInputChange}
-              className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
-            />
-          </div>
-          <div className="mb-4 w-1/2 px-2">
-            <label className="text-sm mb-1">CD MP3 Bluetooth</label>
-            <input
-              type="checkbox"
-              name="CDMP3Bluetooth"
-              checked={formData.CDMP3Bluetooth}
-              onChange={handleInputChange}
-              className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
-            />
-          </div>
-          <div className="mb-1 w-1/2 px-2">
-            <label className="text-sm mb-1">Jantes Aluminium</label>
-            <input
-              type="checkbox"
-              name="JantesAluminium"
-              checked={formData.JantesAluminium}
-              onChange={handleInputChange}
-              className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
-            />
-          </div>
+  <label className="text-sm mb-1">Airbags</label>
+  <input
+    type="checkbox"
+    name="Airbags"
+    checked={formData.Airbags}
+    onChange={handleInputChange}
+    className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
+  />
+</div>
+<div className="mb-4 w-1/2 px-2">
+  <label className="text-sm mb-1">Climatisation</label>
+  <input
+    type="checkbox"
+    name="Climatisation"
+    checked={formData.Climatisation}
+    onChange={handleInputChange}
+    className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
+  />
+</div>
+<div className="mb-4 w-1/2 px-2">
+  <label className="text-sm mb-1">ABS</label>
+  <input
+    type="checkbox"
+    name="ABS"
+    checked={formData.ABS}
+    onChange={handleInputChange}
+    className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
+  />
+</div>
+<div className="mb-4 w-1/2 px-2">
+  <label className="text-sm mb-1">CD MP3 Bluetooth</label>
+  <input
+    type="checkbox"
+    name="CDMP3Bluetooth"
+    checked={formData.CDMP3Bluetooth}
+    onChange={handleInputChange}
+    className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
+  />
+</div>
+<div className="mb-1 w-1/2 px-2">
+  <label className="text-sm mb-1">Jantes Aluminium</label>
+  <input
+    type="checkbox"
+    name="JantesAluminium"
+    checked={formData.JantesAluminium}
+    onChange={handleInputChange}
+    className="border border-purple-500 rounded text-purple-500 focus:ring-purple-400 focus:border-purple-400"
+  />
+</div>
+          
+        {!predictions && submited && (
+          <div class="relative flex justify-center items-center ml-[40%]">
+          <div class="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-purple-500"></div>
+          <img src="https://www.svgrepo.com/show/509001/avatar-thinking-9.svg"  class="rounded-full h-28 w-28"/>
+      </div>
+        )}
 
           {predictions && (
                  <div className="w-full flex justify-center mt-4 bg-purple-300 p-4 rounded shadow-md ">
